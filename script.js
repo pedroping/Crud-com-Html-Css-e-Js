@@ -9,11 +9,14 @@ let itens, id
 const getItensDB = () => JSON.parse(localStorage.getItem('database')) ?? []
 const setItensDB = () => localStorage.setItem('database', JSON.stringify(itens))
 
+
+
 function loadItens(){
     itens = getItensDB()
     tbody.innerHTML = ''
     itens.forEach((item, index) => {
         insertItem(item, index);
+        
     });
 }
 
@@ -60,13 +63,12 @@ function openModal(edit = false, index = 0){
 }
 
 btnSalvar.onclick = e => {
-  
-    if (sNome.value == '' || sEmail.value == '') {
+    let email = sEmail.value;
+    if (sNome.value == '' || sEmail.value == '' || sEmail.value.search("@") == -1) {
       return
     }
-  
     e.preventDefault();
-  
+    
     if (id !== undefined) {
       itens[id].nome = sNome.value
       itens[id].email = sEmail.value
